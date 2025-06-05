@@ -1,3 +1,3 @@
-# @mdl/angular-ui-common
+# mdl-angular/ui-cdk
 
 This library was generated with [Nx](https://nx.dev).

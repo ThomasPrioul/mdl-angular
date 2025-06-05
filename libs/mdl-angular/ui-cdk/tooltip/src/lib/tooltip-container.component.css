@@ -1,0 +1,35 @@
+@layer base {
+  :host {
+    /* background-color: var(--tt-bg); */
+    background: var(--color-neutral, #333);
+    border-radius: var(--radius-field, 0.5rem);
+    color: var(--color-neutral-content, #fff);
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    /* max-width: 10rem; */
+    font-weight: 500;
+    opacity: 1;
+    padding-block: calc(0.25rem * 1);
+    padding-inline: calc(0.25rem * 2);
+    padding: var(--radius-box, 0.5rem);
+    text-align: center;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1) 75ms, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) 75ms;
+    transform: none;
+    white-space: normal;
+    width: max-content;
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(var(--tt-pos, 0.25rem));
+    }
+  }
+
+  :host-context(.top) {
+    margin-bottom: 0.5rem;
+  }
+
+  :host-context(.bottom) {
+    margin-top: 0.5rem;
+  }
+}

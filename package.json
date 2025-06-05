@@ -1,10 +1,11 @@
 {
-  "name": "@mdl-angular-libs/source",
+  "name": "mdl-angular",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@angular/cdk": "~19.2.0",
     "@angular/common": "~19.2.0",
     "@angular/compiler": "~19.2.0",
     "@angular/core": "~19.2.0",

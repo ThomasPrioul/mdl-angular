@@ -1,0 +1,7 @@
+@let data = tooltipData;
+
+@if (isString(data)) {
+  {{ data }}
+} @else {
+  <ng-template [ngTemplateOutlet]="data" />
+}

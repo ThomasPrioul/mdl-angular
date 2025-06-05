@@ -1,7 +1,7 @@
 {
-  "name": "@mdl/angular-ui-common",
+  "name": "mdl-angular/ui-cdk",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/@mdl/angular-ui-common/src",
+  "sourceRoot": "libs/mdl-angular/ui-cdk/src",
   "prefix": "lib",
   "projectType": "library",
   "release": {
@@ -17,14 +17,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/@mdl/angular-ui-common/ng-package.json"
+        "project": "libs/mdl-angular/ui-cdk/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/@mdl/angular-ui-common/tsconfig.lib.prod.json"
+          "tsConfig": "libs/mdl-angular/ui-cdk/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/@mdl/angular-ui-common/tsconfig.lib.json"
+          "tsConfig": "libs/mdl-angular/ui-cdk/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"

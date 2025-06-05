@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../dist/libs/@mdl/angular-ui-common",
+  "dest": "../../../dist/libs/mdl-angular/common",
   "lib": {
     "entryFile": "src/index.ts"
   }
