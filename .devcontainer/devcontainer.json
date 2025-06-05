@@ -1,0 +1,18 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+	"name": "Nx monorepo",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"remoteUser": "node",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/nx-npm:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"nrwl.angular-console"
+			]
+		}
+	}
+}
