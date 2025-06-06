@@ -1,6 +1,7 @@
 {
   "name": "@mdl-angular/common",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "Base Angular pipes and directives useful for your project",
   "peerDependencies": {
     "@angular/core": "^19.2.0",
     "rxjs": "^7.8.1"
