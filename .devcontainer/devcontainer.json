@@ -1,6 +1,5 @@
-// See https://containers.dev/implementors/json_reference/ for configuration reference
 {
-	"name": "Nx monorepo",
+	"name": "MDL angular",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
@@ -11,7 +10,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"nrwl.angular-console"
+				"nrwl.angular-console",
+				"dbaeumer.vscode-eslint"
 			]
 		}
 	}
