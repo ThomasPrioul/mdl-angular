@@ -11,12 +11,12 @@ import {
   input,
 } from '@angular/core';
 
+import { NgClassLike } from '@mdl-angular/common';
 import {
   TOOLTIP_DATA,
   TooltipContainerComponent,
   TooltipData,
 } from './tooltip-container.component';
-import { NgClassLike } from 'mdl-angular/common';
 
 /**
  * Custom tooltip directive. Accepts an inline string or a template ref.
@@ -56,7 +56,11 @@ export class TooltipDirective implements OnDestroy {
         },
       ],
     });
-    const component = new ComponentPortal(TooltipContainerComponent, this.viewContainer, injector);
+    const component = new ComponentPortal(
+      TooltipContainerComponent,
+      this.viewContainer,
+      injector,
+    );
     const componentRef = this.overlayRef.attach(component);
     componentRef.instance.hostClasses = this.tooltipClass;
   }

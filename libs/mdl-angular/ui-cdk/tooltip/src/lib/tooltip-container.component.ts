@@ -8,11 +8,12 @@ import {
   inject,
   input,
 } from '@angular/core';
-
-import { NgClassLike } from 'mdl-angular/common';
+import { NgClassLike } from '@mdl-angular/common';
 
 /** Tooltip content, either a string or a template ref. */
-export const TOOLTIP_DATA = new InjectionToken<TooltipData>('Data to display in tooltip');
+export const TOOLTIP_DATA = new InjectionToken<TooltipData>(
+  'Data to display in tooltip',
+);
 
 export type TooltipData = string | TemplateRef<void>;
 
