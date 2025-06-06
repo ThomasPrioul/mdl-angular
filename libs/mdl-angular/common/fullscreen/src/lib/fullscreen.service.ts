@@ -1,11 +1,15 @@
 import { ElementRef, Injectable, OnDestroy } from '@angular/core';
+
 import { Subscription, fromEvent, map, startWith, tap } from 'rxjs';
 
+/**
+ * Fullscreen API as a service.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class FullscreenService implements OnDestroy {
-  private _isInFullScreen: boolean = false;
+  private _isInFullScreen = false;
   private sub?: Subscription;
 
   public isInFullScreen$ = fromEvent(document, 'fullscreenchange').pipe(
@@ -14,27 +18,47 @@ export class FullscreenService implements OnDestroy {
   );
 
   constructor() {
-    this.sub = this.isInFullScreen$.pipe(tap((val) => (this._isInFullScreen = val))).subscribe();
+    this.sub = this.isInFullScreen$
+      .pipe(tap((val) => (this._isInFullScreen = val)))
+      .subscribe();
   }
 
-  public get isInFullScreen() {
+  /**
+   * Gets whether fullscreen API is currently active.
+   * @returns boolean.
+   */
+  public get isInFullScreen(): boolean {
     return this._isInFullScreen;
   }
 
+  /** {@inheritdoc} */
   public ngOnDestroy(): void {
     this.sub?.unsubscribe();
   }
 
-  public async disableFullScreen() {
+  /**
+   * Disables fullscreen.
+   */
+  public async disableFullScreen(): Promise<void> {
     if (!this.isInFullScreen) return;
     await document.exitFullscreen();
   }
 
-  public async enableFullScreen(element: ElementRef | HTMLElement) {
-    const elHtml = element instanceof ElementRef ? (element.nativeElement as HTMLElement) : element;
+  /**
+   * Enables fullscreen on an element.
+   * @param element - Target element of fullscreen API.
+   */
+  public async enableFullScreen(
+    element: ElementRef | HTMLElement,
+  ): Promise<void> {
+    const elHtml =
+      element instanceof ElementRef
+        ? (element.nativeElement as HTMLElement)
+        : element;
     try {
       await elHtml.requestFullscreen();
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err);
     }
   }

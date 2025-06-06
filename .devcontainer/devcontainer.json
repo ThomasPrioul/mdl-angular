@@ -1,18 +1,37 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
 {
-	"name": "MDL angular",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
-	"remoteUser": "node",
-	"features": {
-		"ghcr.io/devcontainers-extra/features/nx-npm:1": {}
-	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"nrwl.angular-console",
-				"dbaeumer.vscode-eslint"
-			]
-		}
-	}
+    "name": "MDL angular",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
+    "remoteUser": "node",
+    "features": {
+        "ghcr.io/devcontainers-extra/features/nx-npm:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "remote.autoForwardPorts": false,
+                "remote.forwardOnOpen": false
+            },
+            "extensions": [
+                "-esbenp.prettier-vscode",
+                "-cyrilletuzi.angular-schematics",
+                "aljazsim.tsco",
+                "angular.ng-template",
+                "bradlc.vscode-tailwindcss",
+                "dbaeumer.vscode-eslint",
+                "ecmel.vscode-html-css",
+                "mhutchie.git-graph",
+                "nrwl.angular-console",
+                "pucelle.vscode-css-navigation",
+                "streetsidesoftware.code-spell-checker",
+                "streetsidesoftware.code-spell-checker-french",
+                "stylelint.vscode-stylelint"
+            ]
+        }
+    },
+    "postCreateCommand": [
+        "npm i",
+        "bash ~/.devcontainer/post-create.sh"
+    ]
 }

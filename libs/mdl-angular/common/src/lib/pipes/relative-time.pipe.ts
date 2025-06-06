@@ -59,9 +59,13 @@ export class RelativeTimeImpurePipe implements PipeTransform, OnDestroy {
     const absDeltaMs = Math.abs(deltaMs);
 
     // Find exact necessary time until next refresh
-    const moduloToUse = absDeltaMs < ms_1m ? ms_1s : absDeltaMs < ms_1h ? ms_1m : ms_1h;
+    const moduloToUse =
+      absDeltaMs < ms_1m ? ms_1s : absDeltaMs < ms_1h ? ms_1m : ms_1h;
     const msToWait = moduloToUse - (absDeltaMs % moduloToUse);
-    this.tickerId = window.setTimeout(() => this._cdRef.markForCheck(), msToWait);
+    this.tickerId = window.setTimeout(
+      () => this._cdRef.markForCheck(),
+      msToWait,
+    );
 
     const formatter = new Intl.RelativeTimeFormat(navigator.language, options);
     return this.toRelative(deltaMs, absDeltaMs, formatter);
@@ -78,9 +82,12 @@ export class RelativeTimeImpurePipe implements PipeTransform, OnDestroy {
     formatter: Intl.RelativeTimeFormat,
   ): string {
     if (absDelta < ms_1s) return 'maintenant';
-    if (absDelta < ms_1m) return formatter.format(Math.round(deltaMs / ms_1s), 'seconds');
-    if (absDelta < ms_1h) return formatter.format(Math.round(deltaMs / ms_1m), 'minutes');
-    if (absDelta < ms_1d) return formatter.format(Math.round(deltaMs / ms_1h), 'hours');
+    if (absDelta < ms_1m)
+      return formatter.format(Math.round(deltaMs / ms_1s), 'seconds');
+    if (absDelta < ms_1h)
+      return formatter.format(Math.round(deltaMs / ms_1m), 'minutes');
+    if (absDelta < ms_1d)
+      return formatter.format(Math.round(deltaMs / ms_1h), 'hours');
     return formatter.format(Math.round(deltaMs / ms_1d), 'days');
   }
 }

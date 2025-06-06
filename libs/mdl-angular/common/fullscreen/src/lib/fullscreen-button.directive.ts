@@ -1,6 +1,11 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, inject } from '@angular/core';
+
 import { FullscreenService } from './fullscreen.service';
 
+/**
+ * Fullscreen API button directive. Adds handy way to have a "toggle fullscreen" button on the UI.
+ * The target HTML Element of the fullscreen API is configurable.
+ */
 @Directive({
   selector: '[mdlFullscreenButton]',
   standalone: true,
@@ -8,9 +13,11 @@ import { FullscreenService } from './fullscreen.service';
 })
 export class MdlFullscreenButtonDirective {
   private _fullscreenRoot: ElementRef | HTMLElement | undefined;
+  private el = inject(ElementRef<HTMLElement>);
+  private service = inject(FullscreenService);
 
-  constructor(el: ElementRef<HTMLElement>, private service: FullscreenService) {
-    el.nativeElement.addEventListener('click', () => {
+  constructor() {
+    this.el.nativeElement.addEventListener('click', () => {
       if (this.service.isInFullScreen) {
         this.service.disableFullScreen();
       } else if (this.fullscreenRoot) {
@@ -21,13 +28,13 @@ export class MdlFullscreenButtonDirective {
     });
   }
 
+  public get fullscreen(): boolean {
+    return this.service.isInFullScreen;
+  }
+
   @Input('mdlFullscreenButton')
   public get fullscreenRoot(): ElementRef | HTMLElement | undefined | '' {
     return this._fullscreenRoot;
-  }
-
-  public get fullscreen() {
-    return this.service.isInFullScreen;
   }
 
   public set fullscreenRoot(value: ElementRef | HTMLElement | undefined | '') {

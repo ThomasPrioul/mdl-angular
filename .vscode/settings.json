@@ -1,3 +1,49 @@
 {
-    "nxConsole.generateAiAgentRules": true
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features",
+        "editor.formatOnSave": true
+    },
+    "[html]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.formatOnSave": true
+    },
+    "nxConsole.generateAiAgentRules": true,
+    "tsco.organizeOnSave": true,
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "tsco.configurationFilePath": ".vscode/tsco.json",
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "css.validate": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "always",
+        "source.removeUnusedImports": "always",
+        "source.sortImports": "always"
+    },
+    "editor.formatOnSave": false,
+    "eslint.format.enable": true,
+    "eslint.useESLintClass": true,
+    "eslint.useFlatConfig": true,
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+        "html",
+        "css"
+    ],
+    "prettier.enable": false,
+    "stylelint.validate": [
+        "css",
+        "scss"
+    ],
+    "eslint.rules.customizations": [
+        {
+            "rule": "jsdoc/*",
+            "severity": "info"
+        }, // override all no-* rules to info
+    ],
+    "typescript.inlayHints.enumMemberValues.enabled": true,
+    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true,
 }
