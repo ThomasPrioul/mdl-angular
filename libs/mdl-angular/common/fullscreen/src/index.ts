@@ -1,1 +1,2 @@
-export * from './lib/fullscreen.module';
+export * from './lib/fullscreen-button.directive';
+export * from './lib/fullscreen.service';
