@@ -1,11 +1,11 @@
 {
   "name": "@mdl-angular/ui-cdk",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/cdk": "^19.2.0",
-    "@mdl-angular/common": "0.0.1"
+    "@angular/common": ">= ^19.2.0 <21.0.0",
+    "@angular/core": ">= ^19.2.0 <21.0.0",
+    "@angular/cdk": ">= ^19.2.0 <21.0.0",
+    "@mdl-angular/common": ">= 0.0.4"
   },
   "sideEffects": false
 }
