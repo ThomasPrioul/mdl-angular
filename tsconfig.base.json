@@ -15,14 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mdl-angular/auth": ["libs/mdl-angular/auth/src/index.ts"],
       "@mdl-angular/common": ["libs/mdl-angular/common/src/index.ts"],
-      "@mdl-angular/common/fullscreen": [
-        "libs/mdl-angular/common/fullscreen/src/index.ts"
-      ],
+      "@mdl-angular/common/fullscreen": ["libs/mdl-angular/common/fullscreen/src/index.ts"],
       "@mdl-angular/ui-cdk": ["libs/mdl-angular/ui-cdk/src/index.ts"],
-      "@mdl-angular/ui-cdk/tooltip": [
-        "libs/mdl-angular/ui-cdk/tooltip/src/index.ts"
-      ]
+      "@mdl-angular/ui-cdk/tooltip": ["libs/mdl-angular/ui-cdk/tooltip/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
