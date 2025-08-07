@@ -1,0 +1,45 @@
+@if (model(); as model) {
+  @if (model.mode === 'absolute') {
+    @if (!model.from && !model.to) {
+      <span>Choisir une plage</span>
+    } @else {
+      <span>{{ model.from | date: (dateOnly() ? 'shortDate' : 'short') }}</span>
+      <span class="material-icons">east</span>
+      <span>{{ model.to | date: (dateOnly() ? 'shortDate' : 'short') }}</span>
+    }
+  } @else if (model.mode === 'relative') {
+    <span>Last {{ model.duration }}</span>
+  }
+}
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayDisposeOnNavigation]="true"
+  [cdkConnectedOverlayFlexibleDimensions]="true"
+  [cdkConnectedOverlayGrowAfterOpen]="true"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayOpen]="isOpen"
+  [cdkConnectedOverlayOffsetY]="isSmallScreen() ? 0 : 8"
+  [cdkConnectedOverlayPositions]="
+    isSmallScreen() ? CENTER_SCREEN : STANDARD_DROPDOWN_BELOW_POSITIONS
+  "
+  [cdkConnectedOverlayOrigin]="isSmallScreen() ? screenElementRef : el"
+  [cdkConnectedOverlayPush]="true"
+  [cdkConnectedOverlayViewportMargin]="10"
+  (backdropClick)="isOpen = false"
+  (detach)="isOpen = false"
+>
+  <mdl-timewindow-popup
+    [maxDate]="maxDate()"
+    [minDate]="minDate()"
+    [initialValue]="model()"
+    [dateOnly]="dateOnly()"
+    [rangeSelectorMode]="rangeSelectorMode()"
+    [relativeOptions]="relativeOptions()"
+    [showClearButton]="showClearButton()"
+    [showNextYearButtons]="showNextYearButtons()"
+    [step]="step()"
+    (sizeChanged)="needsRepositioning()"
+    (closed)="popupClosed($event)"
+  />
+</ng-template>
