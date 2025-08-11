@@ -10,5 +10,14 @@
     "flatpickr": "~4.6.13"
   },
   "sideEffects": false,
-  "keywords": ["angular", "sncf", "mdl", "cdk", "flatpickr"]
+  "keywords": ["angular", "sncf", "mdl", "cdk", "flatpickr"],
+  "repository": {
+    "type": "git",
+    "url": "github:ThomasPrioul/mdl-angular"
+  },
+  "exports": {
+    ".": {
+      "css": "./css/"
+    }
+  }
 }

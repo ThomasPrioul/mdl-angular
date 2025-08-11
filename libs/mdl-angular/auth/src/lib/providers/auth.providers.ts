@@ -27,13 +27,13 @@ import { AuthService } from '../services/auth.service';
  * @param issuer - Your issuer full URL including the realm.
  * @param clientId - Your OIDC client ID.
  * @param claimsToUserFn - Your method to parse the raw ID token claims and convert them to your user model.
- * @param allowAnonymous - Whether to allow anonymous access in the app (don't force login as soon as you reach the app).
- * @param redirectUri - Your optional redirect URI, otherwise the root '/' will be used.
- * @param config - Configuration object to pass to provideOAuthClient() method.
- * @param validationHandlerClass - Validation handler class to pass to provideOAuthClient() method.
+ * @param allowAnonymous - Whether to allow anonymous access in the app.
  * If true (the default), the user won't be forced to perform an oauth2 flow on app startup,
  * this is useful in case of public home pages for example.
  * If false, the user will be forced to perform an oauth2 flow on app startup.
+ * @param redirectUri - Your optional redirect URI, otherwise the root '/' will be used.
+ * @param config - Configuration object to pass to provideOAuthClient() method.
+ * @param validationHandlerClass - Validation handler class to pass to provideOAuthClient() method.
  * @returns App providers.
  */
 export function provideKeycloakAuth<TUser>(

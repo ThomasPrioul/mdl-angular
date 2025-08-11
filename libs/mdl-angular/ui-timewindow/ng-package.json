@@ -3,5 +3,12 @@
   "dest": "../../../dist/libs/mdl-angular/ui-timewindow",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "assets": [
+    {
+      "input": "css",
+      "glob": "**/*.css",
+      "output": "css"
+    }
+  ]
 }

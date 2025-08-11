@@ -8,12 +8,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/mdl-angular-libs",
         "index": "apps/mdl-angular-libs/src/index.html",
         "browser": "apps/mdl-angular-libs/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/mdl-angular-libs/tsconfig.app.json",
         "assets": [
           {
@@ -21,7 +25,17 @@
             "input": "apps/mdl-angular-libs/public"
           }
         ],
-        "styles": ["apps/mdl-angular-libs/src/styles.css"],
+        "styles": [
+          "apps/mdl-angular-libs/src/styles.css"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "dist/libs",
+            "apps/mdl-angular-libs/src",
+            "apps/mdl-angular-libs",
+            "node_modules"
+          ]
+        },
         "scripts": []
       },
       "configurations": {
@@ -72,7 +86,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/mdl-angular-libs/jest.config.ts"
       }

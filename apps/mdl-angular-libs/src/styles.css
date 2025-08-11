@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@import "../../../libs/mdl-angular/ui-timewindow/css/flatpickr-calendar.css";
+
+@theme {
+    --color-flatpickr-primary: var(--color-blue-500);
+    --color-timewindow-background: white;
+}
+
+@layer utilities {
+    .btn:is(input[type="checkbox"], input[type="radio"]) {
+        appearance: unset;
+
+        &::after {
+            content: attr(aria-label);
+        }
+    }
+}
