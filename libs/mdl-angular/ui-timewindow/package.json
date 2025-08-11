@@ -1,6 +1,6 @@
 {
   "name": "@mdl-angular/ui-timewindow",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "peerDependencies": {
     "@angular/cdk": ">=19.2.0 <21.0.0",
     "@angular/common": ">=19.2.0 <21.0.0",
@@ -10,7 +10,13 @@
     "flatpickr": "~4.6.13"
   },
   "sideEffects": false,
-  "keywords": ["angular", "sncf", "mdl", "cdk", "flatpickr"],
+  "keywords": [
+    "angular",
+    "sncf",
+    "mdl",
+    "cdk",
+    "flatpickr"
+  ],
   "repository": {
     "type": "git",
     "url": "github:ThomasPrioul/mdl-angular"
@@ -18,6 +24,9 @@
   "exports": {
     ".": {
       "css": "./css/"
+    },
+    "./css/*": {
+      "default": "./css/*"
     }
   }
 }
