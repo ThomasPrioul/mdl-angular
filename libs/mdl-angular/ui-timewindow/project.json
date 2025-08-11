@@ -13,7 +13,14 @@
   },
   "tags": [],
   "targets": {
+    "build-css": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "postcss ./libs/mdl-angular/ui-timewindow/src/lib/styles/index.css -o ./libs/mdl-angular/ui-timewindow/src/lib/styles/generated.css --env production"
+      }
+    },
     "build": {
+      "dependsOn": ["build-css"],
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {

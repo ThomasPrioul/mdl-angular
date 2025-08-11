@@ -4,7 +4,10 @@
   :host {
     display: block;
     max-width: 720px;
-    background-color: var(--color-timewindow-background, white);
+
+    >form {
+      background-color: var(--color-timewindow-background, white);
+    }
   }
 
   .absolute-mode-host {

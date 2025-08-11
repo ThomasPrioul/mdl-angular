@@ -96,7 +96,7 @@ span.flatpickr-weekday {
     &.inRange {
         cursor: pointer;
         background: color-mix(in oklch, currentColor, transparent 80%);
-        border-color: var(--color-flatpickr-primary);
+        border-color: var(--color-flatpickr-primary, darkGray);
         border-radius: 0;
 
         &:not(:where(:focus, :hover)) {
@@ -125,8 +125,8 @@ span.flatpickr-weekday {
 
     &:where(.selected, .startRange, .endRange) {
         color: #fff;
-        background: var(--color-flatpickr-primary);
-        border-color: var(--color-flatpickr-primary);
+        background: var(--color-flatpickr-primary, darkGray);
+        border-color: var(--color-flatpickr-primary, darkGray);
     }
 
     &.startRange:not(.endRange) {
