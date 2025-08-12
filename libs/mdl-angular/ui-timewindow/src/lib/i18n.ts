@@ -7,6 +7,7 @@ export const FrenchTimewindowStrings: TimewindowStrings = {
   clearValues: 'Effacer les valeurs',
   confirm: 'Appliquer',
   relativeDates: 'Relatives',
+  chooseTimeRange: 'Choisir une plage',
 
   absolute: {
     endDate: 'Date de fin',
@@ -38,6 +39,7 @@ export const FrenchTimewindowStrings: TimewindowStrings = {
     months: 'Mois',
     years: 'Années',
   },
+  last: 'Dernier',
 };
 
 /** Timewindow strings translations injection token.*/
@@ -58,6 +60,7 @@ export interface TimewindowStrings {
   };
   absoluteDates: string;
   cancel: string;
+  chooseTimeRange: string;
   clearValues: string;
   confirm: string;
   duration: {
@@ -72,6 +75,7 @@ export interface TimewindowStrings {
     months: string;
     years: string;
   };
+  last: string;
   relative: {
     chooseRange: string;
     customRange: string;

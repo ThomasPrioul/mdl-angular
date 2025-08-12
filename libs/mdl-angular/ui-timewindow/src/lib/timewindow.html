@@ -1,7 +1,7 @@
 @if (model(); as model) {
   @if (model.mode === 'absolute') {
     @if (!model.from && !model.to) {
-      <span>Choisir une plage</span>
+      <span>{{_locale.chooseTimeRange}}</span>
     } @else {
       <span>{{ model.from | date: (dateOnly() ? 'shortDate' : 'short') }}</span>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
@@ -10,8 +10,10 @@
       <span>{{ model.to | date: (dateOnly() ? 'shortDate' : 'short') }}</span>
     }
   } @else if (model.mode === 'relative') {
-    <span>Last {{ model.duration }}</span>
+    <span>{{_locale.last}} {{ model.duration }}</span>
   }
+} @else {
+  <span>{{_locale.chooseTimeRange}}</span>
 }
 
 <ng-template

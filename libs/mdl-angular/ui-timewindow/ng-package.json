@@ -6,9 +6,10 @@
   },
   "assets": [
     {
-      "input": "css",
-      "glob": "**/*.css",
+      "input": "src/lib/styles",
+      "glob": "**/generated.css",
       "output": "css"
-    }
+    },
+    "css/flatpickr-calendar.css"
   ]
 }

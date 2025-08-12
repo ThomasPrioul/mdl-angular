@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { map } from 'rxjs';
 
+import { FrenchTimewindowStrings, TIMEWINDOW_STRINGS } from './i18n';
 import { TimeRangeString, TimeWindow } from './model';
 import {
   RangeSelectorMode,
@@ -65,7 +66,8 @@ export class TimewindowComponent {
     this.breakpoints.observe(['(max-width: 48rem)']).pipe(map((b) => b.matches)),
   );
   protected readonly screenElementRef = new ElementRef(document.documentElement); //inject(DOCUMENT)
-
+  protected readonly _locale =
+    inject(TIMEWINDOW_STRINGS, { optional: true }) ?? FrenchTimewindowStrings;
   protected isOpen = false;
 
   public readonly dateOnly = input<boolean>(false);

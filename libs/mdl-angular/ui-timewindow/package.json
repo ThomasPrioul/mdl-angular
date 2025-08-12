@@ -1,6 +1,6 @@
 {
   "name": "@mdl-angular/ui-timewindow",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "peerDependencies": {
     "@angular/cdk": ">=19.2.0 <21.0.0",
     "@angular/common": ">=19.2.0 <21.0.0",
@@ -22,5 +22,13 @@
   "repository": {
     "type": "git",
     "url": "github:ThomasPrioul/mdl-angular"
+  },
+  "exports": {
+    ".": {
+      "css": "./css"
+    },
+    "./css/*": {
+      "default": "./css/*"
+    }
   }
 }
