@@ -7,6 +7,28 @@
     "features": {
         "ghcr.io/devcontainers-extra/features/nx-npm:1": {}
     },
+    "containerEnv": {
+        "http_proxy": "${localEnv:http_proxy}",
+        "HTTP_PROXY": "${localEnv:http_proxy}",
+        "https_proxy": "${localEnv:https_proxy}",
+        "HTTPS_PROXY": "${localEnv:https_proxy}",
+        "no_proxy": "${localEnv:no_proxy}",
+        "NO_PROXY": "${localEnv:no_proxy}"
+    },
+    "remoteEnv": {
+        "http_proxy": "${localEnv:http_proxy}",
+        "HTTP_PROXY": "${localEnv:http_proxy}",
+        "https_proxy": "${localEnv:https_proxy}",
+        "HTTPS_PROXY": "${localEnv:https_proxy}",
+        "no_proxy": "${localEnv:no_proxy}",
+        "NO_PROXY": "${localEnv:no_proxy}"
+    },
+    "runArgs": [
+        "--network=host"
+    ],
+    "otherPortsAttributes": {
+        "onAutoForward": "ignore"
+    },
     "customizations": {
         "vscode": {
             "settings": {
@@ -30,8 +52,8 @@
             ]
         }
     },
-    "postCreateCommand": [
-        "npm i",
-        "bash ~/.devcontainer/post-create.sh"
-    ]
+    // "postCreateCommand": [
+        // "npm i",
+        // "bash ~/.devcontainer/post-create.sh"
+    // ]
 }

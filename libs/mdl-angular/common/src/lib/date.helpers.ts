@@ -141,3 +141,21 @@ export function toDate(value: string | number | Date): Date {
   }
   return date;
 }
+
+/**
+ * Compares two nullable dates for equality.
+ * @param a - First date to compare.
+ * @param b - Second date to compare.
+ */
+export function compareNullableDates(a: Date | null, b: Date | null): boolean {
+  return a?.valueOf() === b?.valueOf();
+}
+
+/**
+ * Compares two dates for equality.
+ * @param a - First date to compare.
+ * @param b - Second date to compare.
+ */
+export function compareDates(a: Date, b: Date): boolean {
+  return a.valueOf() === b.valueOf();
+}

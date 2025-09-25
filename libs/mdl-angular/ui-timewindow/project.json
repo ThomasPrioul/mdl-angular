@@ -1,7 +1,7 @@
 {
-  "name": "mdl-angular/common",
+  "name": "mdl-angular/ui-timewindow",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/mdl-angular/common/src",
+  "sourceRoot": "libs/mdl-angular/ui-timewindow/src",
   "prefix": "mdl",
   "projectType": "library",
   "release": {
@@ -13,18 +13,25 @@
   },
   "tags": [],
   "targets": {
+    "build-css": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "postcss ./libs/mdl-angular/ui-timewindow/src/lib/styles/index.css -o ./libs/mdl-angular/ui-timewindow/src/lib/styles/generated.css --env production"
+      }
+    },
     "build": {
+      "dependsOn": ["build-css"],
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/mdl-angular/common/ng-package.json"
+        "project": "libs/mdl-angular/ui-timewindow/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/mdl-angular/common/tsconfig.lib.prod.json"
+          "tsConfig": "libs/mdl-angular/ui-timewindow/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/mdl-angular/common/tsconfig.lib.json"
+          "tsConfig": "libs/mdl-angular/ui-timewindow/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"

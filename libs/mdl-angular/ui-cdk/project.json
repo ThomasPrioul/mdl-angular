@@ -2,7 +2,7 @@
   "name": "mdl-angular/ui-cdk",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/mdl-angular/ui-cdk/src",
-  "prefix": "lib",
+  "prefix": "mdl",
   "projectType": "library",
   "release": {
     "version": {

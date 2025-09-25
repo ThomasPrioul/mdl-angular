@@ -44,3 +44,4 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+libs/mdl-angular/ui-timewindow/src/lib/styles/generated.css

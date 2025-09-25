@@ -1,0 +1,349 @@
+<ng-template #fromInputValidationHints>
+  <div class="validator-hint">
+    @if (
+      _form.controls.from.hasError('min') &&
+      (_form.controls.from.touched || _form.controls.from.dirty)
+    ) {
+      <div>
+        {{ _locale.absolute.minValidationHint }}
+        {{ _form.controls.from.getError('min').min | date: (dateOnly() ? 'shortDate' : 'short') }}
+      </div>
+    }
+    @if (
+      _form.controls.from.hasError('max') &&
+      (_form.controls.from.touched || _form.controls.from.dirty)
+    ) {
+      <div>
+        {{ _locale.absolute.maxValidationHint }}
+        {{ _form.controls.from.getError('max').max | date: (dateOnly() ? 'shortDate' : 'short') }}
+      </div>
+    }
+    @if (_form.controls.from.hasError('minmax')) {
+      <div>{{ _locale.absolute.minMaxValidationHint }}</div>
+    }
+  </div>
+</ng-template>
+<ng-template #toInputValidationHints>
+  <div class="validator-hint">
+    @if (
+      _form.controls.to.hasError('min') && (_form.controls.to.touched || _form.controls.to.dirty)
+    ) {
+      <div>
+        {{ _locale.absolute.minValidationHint }}
+        {{ _form.controls.to.getError('min').min | date: (dateOnly() ? 'shortDate' : 'short') }}
+      </div>
+    }
+    @if (
+      _form.controls.to.hasError('max') && (_form.controls.to.touched || _form.controls.to.dirty)
+    ) {
+      <div>
+        {{ _locale.absolute.maxValidationHint }}
+        {{ _form.controls.to.getError('max').max | date: (dateOnly() ? 'shortDate' : 'short') }}
+      </div>
+    }
+  </div>
+</ng-template>
+<form
+  [formGroup]="_form"
+  (ngSubmit)="closedWithResult()"
+  class="bg-base-100 gap-3 p-6 rounded-box shadow-sm flex flex-col overflow-y-auto max-h-full"
+  cdkTrapFocus
+  cdkTrapFocusAutoCapture
+>
+  @if (!rangeSelectorMode()) {
+    <div class="join hidden sm:inline-flex">
+      <input
+        [attr.aria-label]="_locale.relativeDates"
+        class="join-item btn"
+        type="radio"
+        name="timeMode"
+        value="relative"
+        [formControl]="_form.controls.mode"
+      />
+      <input
+        [attr.aria-label]="_locale.absoluteDates"
+        class="join-item btn"
+        type="radio"
+        name="timeMode"
+        value="absolute"
+        [formControl]="_form.controls.mode"
+      />
+    </div>
+    <select class="select shrink-0 w-full sm:hidden" [formControl]="_form.controls.mode">
+      <option value="relative">{{ _locale.relativeDates }}</option>
+      <option value="absolute">{{ _locale.absoluteDates }}</option>
+    </select>
+  }
+  @if (
+    rangeSelectorMode() === 'relative' ||
+    (!rangeSelectorMode() && _form.controls.mode.value === 'relative')
+  ) {
+    <div class="flex flex-col gap-1">
+      <div class="label">{{ _locale.relative.chooseRange }}</div>
+      @for (item of _relativeOptions() | keyvalue: compareByDurationDesc; track item.key) {
+        <label class="flex cursor-pointer items-center gap-2">
+          <input
+            type="radio"
+            name="range_value"
+            [value]="item.key"
+            [formControl]="_form.controls.rangeKey"
+            class="radio radio-xs"
+          />
+          <span>{{ item.value.label }}</span>
+        </label>
+      }
+      <div>
+        <label class="flex cursor-pointer items-center gap-2">
+          <input
+            id="custom_range_radio"
+            type="radio"
+            [formControl]="_form.controls.rangeKey"
+            value=""
+            name="range_value"
+            class="radio radio-xs"
+          />
+          <span>{{ _locale.relative.customRange }}</span>
+        </label>
+        <label class="cursor-pointer fieldset-label ms-6 text-sm" for="custom_range_radio">
+          <span>{{ _locale.relative.customRangeDescription }}</span>
+        </label>
+        <div></div>
+      </div>
+      @if (_form.controls.rangeKey.value === '') {
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-fit ms-6 mt-2">
+          <label class="block">
+            <div class="label">{{ _locale.duration.label }}</div>
+            <div class="input">
+              <input
+                type="number"
+                min="0"
+                [formControl]="_form.controls.duration"
+                required
+                inputmode="decimal"
+                [placeholder]="_locale.duration.placeholder"
+              />
+            </div>
+          </label>
+          <label class="block">
+            <div class="label">Unité de temps</div>
+            <select class="select" value="m" [formControl]="_form.controls.timeUnit">
+              <option value="s">{{ _locale.duration.seconds }}</option>
+              <option value="m">{{ _locale.duration.minutes }}</option>
+              <option value="h">{{ _locale.duration.hours }}</option>
+              <option value="d">{{ _locale.duration.days }}</option>
+              <option value="w">{{ _locale.duration.weeks }}</option>
+              <option value="M">{{ _locale.duration.months }}</option>
+              <option value="y">{{ _locale.duration.years }}</option>
+            </select>
+          </label>
+        </div>
+      }
+      <label class="flex gap-1">
+        <div class="label">LIVE</div>
+        <input type="checkbox" class="toggle toggle-error" [formControl]="_form.controls.live" />
+      </label>
+    </div>
+  } @else if (
+    rangeSelectorMode() === 'absolute' ||
+    (!rangeSelectorMode() && _form.controls.mode.value === 'absolute')
+  ) {
+    <div class="absolute-mode-host">
+      @if (platform.IOS || platform.ANDROID) {
+        <label class="flex flex-col col-span-2">
+          <div class="label">
+            {{ dateOnly() ? _locale.absolute.startDate : _locale.absolute.startDateTime }}
+          </div>
+          <input
+            class="input w-full ng-validator"
+            [type]="dateOnly() ? 'date' : 'datetime-local'"
+            required
+            [formControl]="_form.controls.from"
+            [attr.step]="step()"
+            [attr.min]="minDate() | date: (dateOnly() ? 'yyyy-MM-dd' : 'yyyy-MM-ddTHH:mm')"
+            [attr.max]="
+              maxDateForStartRange() | date: (dateOnly() ? 'yyyy-MM-dd' : 'yyyy-MM-ddTHH:mm')
+            "
+          />
+          <ng-container *ngTemplateOutlet="fromInputValidationHints"></ng-container>
+        </label>
+        <label class="flex flex-col col-span-2">
+          <div class="label">
+            {{ dateOnly() ? _locale.absolute.endDate : _locale.absolute.endDateTime }}
+          </div>
+          <input
+            class="input w-full ng-validator"
+            [type]="dateOnly() ? 'date' : 'datetime-local'"
+            required
+            [formControl]="_form.controls.to"
+            [attr.step]="step()"
+            [attr.min]="
+              minDateForEndRange() | date: (dateOnly() ? 'yyyy-MM-dd' : 'yyyy-MM-ddTHH:mm')
+            "
+            [attr.max]="maxDate() | date: (dateOnly() ? 'yyyy-MM-dd' : 'yyyy-MM-ddTHH:mm')"
+          />
+          <ng-container *ngTemplateOutlet="toInputValidationHints"></ng-container>
+        </label>
+      } @else {
+        <div
+          class="calendar-header grid grid-cols-subgrid grid-rows-subgrid items-center justify-between gap-2 col-span-full"
+        >
+          <div class="flex items-center">
+            @if (showNextYearButtons()) {
+              <button
+                type="button"
+                class="btn btn-ghost btn-circle aspect-square"
+                (click)="changeMonth(-12)"
+                tabindex="-1"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                  <path fill-rule="evenodd" d="M4.72 9.47a.75.75 0 0 0 0 1.06l4.25 4.25a.75.75 0 1 0 1.06-1.06L6.31 10l3.72-3.72a.75.75 0 1 0-1.06-1.06L4.72 9.47Zm9.25-4.25L9.72 9.47a.75.75 0 0 0 0 1.06l4.25 4.25a.75.75 0 1 0 1.06-1.06L11.31 10l3.72-3.72a.75.75 0 0 0-1.06-1.06Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            }
+            <button
+              type="button"
+              class="btn btn-ghost btn-circle aspect-square"
+              (click)="changeMonth(-1)"
+              [disabled]="previousCal.disablePreviousMonth"
+              tabindex="-1"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                <path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          <div class="font-medium text-sm col-start-1 col-end-3 max-sm:hidden place-self-center">
+            {{ previousCal.currentMonth() }}
+          </div>
+          <div
+            class="font-medium text-sm col-span-full sm:col-start-3 sm:col-end-5 place-self-center"
+          >
+            <span class="sm:hidden"> {{ previousCal.currentMonth() }} / </span>
+            {{ currentCal.currentMonth() }}
+          </div>
+          <div class="flex items-center justify-end -col-start-1">
+            <button
+              type="button"
+              class="btn btn-ghost btn-circle aspect-square justify-self-end"
+              tabindex="-1"
+              (click)="changeMonth(1)"
+              [disabled]="currentCal.disableNextMonth"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            @if (showNextYearButtons()) {
+              <button
+                type="button"
+                class="btn btn-ghost btn-circle aspect-square justify-self-end"
+                tabindex="-1"
+                (click)="changeMonth(12)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                  <path fill-rule="evenodd" d="M15.28 9.47a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L13.69 10 9.97 6.28a.75.75 0 0 1 1.06-1.06l4.25 4.25ZM6.03 5.22l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L8.69 10 4.97 6.28a.75.75 0 0 1 1.06-1.06Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            }
+          </div>
+        </div>
+        <div class="calendar col-span-2 flatpickr-hide-next">
+          <div
+            mdlCalendar
+            #previousCal="mdlCalendar"
+            [monthOffset]="-1"
+            [minDate]="_minDateCurated()"
+            [maxDate]="_maxDateCurated()"
+            [startRange]="_form.controls.from.value"
+            [endRange]="_form.controls.to.value"
+            (hovering)="currentCal.firstDayFocus()"
+            (dateChanged)="handleDateChanged($event)"
+          ></div>
+        </div>
+        <div class="calendar col-span-2 flatpickr-hide-previous max-sm:flatpickr-hide-weeks">
+          <div
+            mdlCalendar
+            #currentCal="mdlCalendar"
+            [minDate]="_minDateCurated()"
+            [maxDate]="_maxDateCurated()"
+            [startRange]="_form.controls.from.value"
+            [endRange]="_form.controls.to.value"
+            (hovering)="previousCal.lastDayFocus()"
+            (dateChanged)="handleDateChanged($event)"
+          ></div>
+        </div>
+        <label class="flex flex-col" [class.col-span-2]="dateOnly()">
+          <div class="label">{{ _locale.absolute.startDate }}</div>
+          <input
+            class="input ng-validator w-full"
+            type="date"
+            [attr.min]="minDate() | date: 'yyyy-MM-dd'"
+            [attr.max]="maxDateForStartRange() | date: 'yyyy-MM-dd'"
+            required
+            (blur)="_form.controls.from.setValue(_form.controls.from.value, modelToView)"
+            [formControl]="_form.controls.from"
+          />
+          <ng-container *ngTemplateOutlet="fromInputValidationHints"></ng-container>
+        </label>
+        @if (!dateOnly()) {
+          <label class="flex flex-col">
+            <div class="label">{{ _locale.absolute.startTime }}</div>
+            <input
+              class="input ng-validator w-full"
+              type="time"
+              [attr.step]="step()"
+              required
+              [formControl]="_form.controls.from"
+              (blur)="_form.controls.from.setValue(_form.controls.from.value, modelToView)"
+              timeInDate
+            />
+          </label>
+        }
+        <label class="flex flex-col" [class.col-span-2]="dateOnly()">
+          <div class="label">{{ _locale.absolute.endDate }}</div>
+          <input
+            class="input ng-validator w-full"
+            type="date"
+            [attr.min]="minDateForEndRange() | date: 'yyyy-MM-dd'"
+            [attr.max]="maxDate() | date: 'yyyy-MM-dd'"
+            required
+            [formControl]="_form.controls.to"
+            [snapEnd]="true"
+            (blur)="_form.controls.to.setValue(_form.controls.to.value, modelToView)"
+          />
+          <ng-container *ngTemplateOutlet="toInputValidationHints"></ng-container>
+        </label>
+        @if (!dateOnly()) {
+          <label class="flex flex-col">
+            <div class="label">{{ _locale.absolute.endTime }}</div>
+            <input
+              class="input ng-validator w-full"
+              type="time"
+              [attr.step]="step()"
+              required
+              [formControl]="_form.controls.to"
+              timeInDate
+              (blur)="_form.controls.to.setValue(_form.controls.to.value, modelToView)"
+            />
+          </label>
+        }
+      }
+    </div>
+  }
+  <div class="divider m-0"></div>
+  <div class="flex items-center gap-2 flex-wrap">
+    @if (showClearButton()) {
+      <button type="button" class="btn btn-ghost" (click)="clearValues()" [disabled]="!canReset()">
+        {{ _locale.clearValues }}
+      </button>
+    }
+    <div class="ms-auto flex items-center gap-2">
+      <button type="button" class="btn btn-neutral" (click)="closed.emit(null)">
+        {{ _locale.cancel }}
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="_form.invalid">
+        {{ _locale.confirm }}
+      </button>
+    </div>
+  </div>
+</form>

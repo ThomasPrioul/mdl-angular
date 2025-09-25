@@ -1,0 +1,49 @@
+@if (model(); as model) {
+  @if (model.mode === 'absolute') {
+    @if (!model.from && !model.to) {
+      <span>{{_locale.chooseTimeRange}}</span>
+    } @else {
+      <span>{{ model.from | date: (dateOnly() ? 'shortDate' : 'short') }}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+        <path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z" clip-rule="evenodd" />
+      </svg>
+      <span>{{ model.to | date: (dateOnly() ? 'shortDate' : 'short') }}</span>
+    }
+  } @else if (model.mode === 'relative') {
+    <span>{{_locale.last}} {{ model.duration }}</span>
+  }
+} @else {
+  <span>{{_locale.chooseTimeRange}}</span>
+}
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayDisposeOnNavigation]="true"
+  [cdkConnectedOverlayFlexibleDimensions]="true"
+  [cdkConnectedOverlayGrowAfterOpen]="true"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayOpen]="isOpen"
+  [cdkConnectedOverlayOffsetY]="isSmallScreen() ? 0 : 8"
+  [cdkConnectedOverlayPositions]="
+    isSmallScreen() ? CENTER_SCREEN : STANDARD_DROPDOWN_BELOW_POSITIONS
+  "
+  [cdkConnectedOverlayOrigin]="isSmallScreen() ? screenElementRef : el"
+  [cdkConnectedOverlayPush]="true"
+  [cdkConnectedOverlayViewportMargin]="10"
+  (backdropClick)="isOpen = false"
+  (detach)="isOpen = false"
+>
+  <mdl-timewindow-popup
+    [maxDate]="maxDate()"
+    [minDate]="minDate()"
+    [initialValue]="model()"
+    [dateOnly]="dateOnly()"
+    [rangeSelectorMode]="rangeSelectorMode()"
+    [relativeOptions]="relativeOptions()"
+    [showClearButton]="showClearButton()"
+    [showNextYearButtons]="showNextYearButtons()"
+    [step]="step()"
+    (sizeChanged)="needsRepositioning()"
+    (closed)="popupClosed($event)"
+  />
+</ng-template>
