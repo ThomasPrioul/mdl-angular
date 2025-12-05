@@ -1,10 +1,11 @@
 {
   "name": "@mdl-angular/auth",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Auth and fake auth for your MDL angular app",
   "peerDependencies": {
     "@angular/core": ">=19.2.0 <21.0.0",
     "@angular/router": ">=19.2.0 <21.0.0",
+    "angular-oauth2-oidc": ">=19.0.0",
     "rxjs": "~7.8.0"
   },
   "sideEffects": false,
