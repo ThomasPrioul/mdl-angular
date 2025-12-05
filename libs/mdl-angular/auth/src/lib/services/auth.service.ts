@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 
 import { EventType, OAuthService } from 'angular-oauth2-oidc';
 
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { CLAIMS_TO_USER, ClaimsToUserFn, IAuthService } from '../interfaces/auth.interface';
 
 /**
@@ -11,6 +11,7 @@ import { CLAIMS_TO_USER, ClaimsToUserFn, IAuthService } from '../interfaces/auth
 @Injectable({ providedIn: 'root' })
 export class AuthService<T> implements IAuthService<T> {
   private readonly _user = signal<T | undefined>(undefined); //, { equal: haveSameRoles });
+  private readonly _accesToken = signal<string | undefined>(undefined); //, { equal: haveSameRoles });
   private readonly claimsConverter = inject(CLAIMS_TO_USER) as ClaimsToUserFn<T>;
   private readonly loadUserEvents: EventType[] = [
     'user_profile_loaded',
@@ -20,14 +21,19 @@ export class AuthService<T> implements IAuthService<T> {
   private readonly oauth = inject(OAuthService);
 
   public readonly user = this._user.asReadonly();
+  public readonly accesToken = this._accesToken.asReadonly();
 
   constructor() {
     if (this.oauth.hasValidIdToken()) {
       this.setUserInfo();
+      this._accesToken.set(this.oauth.getAccessToken());
     }
 
     this.oauth.events
-      .pipe(filter((e) => this.loadUserEvents.includes(e.type)))
+      .pipe(
+        filter((e) => this.loadUserEvents.includes(e.type)),
+        tap(() => this._accesToken.set(this.oauth.getAccessToken())),
+      )
       .subscribe(() => this.setUserInfo());
   }
 
