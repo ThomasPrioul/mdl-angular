@@ -10,8 +10,8 @@ import { CLAIMS_TO_USER, ClaimsToUserFn, IAuthService } from '../interfaces/auth
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService<T> implements IAuthService<T> {
-  private readonly _user = signal<T | undefined>(undefined); //, { equal: haveSameRoles });
   private readonly _accessToken = signal<string | undefined>(undefined); //, { equal: haveSameRoles });
+  private readonly _user = signal<T | undefined>(undefined); //, { equal: haveSameRoles });
   private readonly claimsConverter = inject(CLAIMS_TO_USER) as ClaimsToUserFn<T>;
   private readonly loadUserEvents: EventType[] = [
     'user_profile_loaded',
@@ -20,8 +20,8 @@ export class AuthService<T> implements IAuthService<T> {
   ];
   private readonly oauth = inject(OAuthService);
 
+  public readonly accessToken = this._accessToken.asReadonly();
   public readonly user = this._user.asReadonly();
-  public readonly accesToken = this._accessToken.asReadonly();
 
   constructor() {
     if (this.oauth.hasValidIdToken()) {

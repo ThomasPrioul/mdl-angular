@@ -13,6 +13,7 @@ import {
 } from 'angular-oauth2-oidc';
 
 import {
+  ACCESS_TOKEN,
   ALLOW_ANONYMOUS,
   AUTH_SERVICE,
   CLAIMS_TO_USER,
@@ -88,6 +89,10 @@ export function provideKeycloakAuth<TUser>(
     {
       provide: CURRENT_USER,
       useFactory: () => (inject(AUTH_SERVICE) as IAuthService<TUser>).user,
+    },
+    {
+      provide: ACCESS_TOKEN,
+      useFactory: () => (inject(AUTH_SERVICE) as IAuthService<TUser>).accessToken,
     },
   ]);
 }

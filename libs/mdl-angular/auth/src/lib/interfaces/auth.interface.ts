@@ -1,5 +1,8 @@
 import { InjectionToken, Signal } from '@angular/core';
 
+/** Auth access_token. */
+export const ACCESS_TOKEN = new InjectionToken<IAuthService<unknown>>('ACCESS_TOKEN');
+
 /** Whether to allow anonymous access. */
 export const ALLOW_ANONYMOUS = new InjectionToken<boolean>('ALLOW_ANONYMOUS');
 
@@ -14,6 +17,9 @@ export const CURRENT_USER = new InjectionToken<Signal<unknown | undefined>>('CUR
 
 /** Interface for an auth service. */
 export interface IAuthService<T> {
+  /** Current access token signal */
+  accessToken: Signal<string | undefined>;
+
   /** User info signal. */
   user: Signal<T | undefined>;
 

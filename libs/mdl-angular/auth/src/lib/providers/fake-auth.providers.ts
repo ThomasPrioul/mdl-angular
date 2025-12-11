@@ -11,6 +11,7 @@ import {
 import { Router } from '@angular/router';
 
 import {
+  ACCESS_TOKEN,
   ALLOW_ANONYMOUS,
   AUTH_SERVICE,
   CURRENT_USER,
@@ -50,6 +51,10 @@ export function provideFakeAuth<TUser>(
       provide: CURRENT_USER,
       useFactory: () => (inject(AUTH_SERVICE) as IAuthService<TUser>).user,
     },
+    {
+      provide: ACCESS_TOKEN,
+      useFactory: () => (inject(AUTH_SERVICE) as IAuthService<TUser>).accessToken,
+    },
   ];
 
   if (!allowAnonymous) {
@@ -74,6 +79,7 @@ class FakeAuthService<T> implements IAuthService<T> {
   );
   private readonly router = inject(Router);
 
+  public readonly accessToken = signal<string | undefined>(undefined);
   public readonly user = this._user.asReadonly();
 
   public hasValidAccess(): boolean {
