@@ -1,6 +1,8 @@
 export * from './lib/guards/restricted-access.guard';
 
 export {
+  ACCESS_TOKEN,
+  ALLOW_ANONYMOUS,
   AUTH_SERVICE,
   CLAIMS_TO_USER,
   CURRENT_USER,
