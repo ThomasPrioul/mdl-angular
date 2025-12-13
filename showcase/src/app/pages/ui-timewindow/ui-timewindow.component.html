@@ -1,0 +1,126 @@
+<div class="px-4 py-8 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">UI TimeWindow</h1>
+    <p class="text-lg text-gray-600 mb-8">
+      Composants de sélection de plages temporelles avec calendrier intégré.
+    </p>
+
+    <div class="mdl-form-field mb-8">
+      <div class="mdl-label mb-2">Plage de recherche</div>
+      <button
+        id="timewindow-search"
+        class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary mat-mdc-button-base"
+        mdl-timewindow
+        [rangeSelectorMode]="'absolute'"
+        [model]="timewindowShowCase"
+        (modelChange)="updateTimewindow($event)"
+      >
+        Sélectionner une plage
+      </button>
+      <!-- mettre [showNextYearButtons]="false" si tu utilises un min/max sur les dates sinon tu peux avoir un bug -->
+
+      <div class="bg-gray-50 p-4 rounded-md mt-4">
+        <h4 class="text-sm font-medium text-gray-900 mb-2">Plage sélectionnée :</h4>
+        <pre class="text-xs bg-white p-2 rounded border overflow-x-auto">{{
+          timewindow() | json
+        }}</pre>
+      </div>
+    </div>
+
+    <!-- Section Exemple de base -->
+    <section class="bg-white shadow rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Exemple de base</h2>
+      <p class="text-gray-600 mb-6">
+        Sélecteur de plage temporelle avec support des périodes relatives et absolues.
+      </p>
+
+      <div class="space-y-4">
+        <div>
+          <label for="timewindow-basic" class="block text-sm font-medium text-gray-700 mb-2">
+            Sélectionner une période :
+          </label>
+          <button
+            id="timewindow-basic"
+            mdl-timewindow
+            [model]="selectedTimeWindow()"
+            (modelChange)="selectedTimeWindow.set($event)"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            Période sélectionnée
+          </button>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-md">
+          <h4 class="text-sm font-medium text-gray-900 mb-2">Valeur sélectionnée :</h4>
+          <pre class="text-xs bg-white p-2 rounded border overflow-x-auto">{{
+            selectedTimeWindow() | json
+          }}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section avec état initial -->
+    <section class="bg-white shadow rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Avec période pré-définie</h2>
+      <p class="text-gray-600 mb-6">
+        Exemple avec une période relative pré-sélectionnée (dernières 24 heures).
+      </p>
+
+      <div class="space-y-4">
+        <div>
+          <label for="timewindow-predefined" class="block text-sm font-medium text-gray-700 mb-2">
+            Dernières 24h (pré-sélectionné) :
+          </label>
+          <button
+            id="timewindow-predefined"
+            mdl-timewindow
+            [model]="predefinedTimeWindow()"
+            (modelChange)="$event && predefinedTimeWindow.set($event)"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            Période sélectionnée
+          </button>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-md">
+          <h4 class="text-sm font-medium text-gray-900 mb-2">Valeur sélectionnée :</h4>
+          <pre class="text-xs bg-white p-2 rounded border overflow-x-auto">{{
+            predefinedTimeWindow() | json
+          }}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Documentation -->
+    <section class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Utilisation</h2>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-lg font-medium text-gray-900">Import</h3>
+          <pre
+            class="bg-gray-100 p-3 rounded text-sm overflow-x-auto"
+          ><code>import {{ '{' }} TimewindowComponent, TIMEWINDOW_STRINGS, FrenchTimewindowStrings {{ '}' }} from '&#64;mdl-angular/ui-timewindow';</code></pre>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium text-gray-900">Template</h3>
+          <pre
+            class="bg-gray-100 p-3 rounded text-sm overflow-x-auto"
+          ><code>&lt;button mdl-timewindow [(ngModel)]="timeWindow" class="btn"&gt;
+  Sélectionner une période
+&lt;/button&gt;</code></pre>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium text-gray-900">Types supportés</h3>
+          <ul class="list-disc list-inside text-gray-600 space-y-1">
+            <li><strong>Relatif :</strong> Périodes comme "dernières 24h", "derniers 7 jours"</li>
+            <li><strong>Absolu :</strong> Plages de dates fixes avec heures précises</li>
+            <li><strong>Mode live :</strong> Périodes qui se mettent à jour automatiquement</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

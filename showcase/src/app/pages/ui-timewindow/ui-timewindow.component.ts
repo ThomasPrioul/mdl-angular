@@ -1,28 +1,85 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  TimewindowComponent,
+  TimeWindow,
+  TIMEWINDOW_STRINGS,
+  FrenchTimewindowStrings,
+} from '@mdl-angular/ui-timewindow';
+import { DateTime } from 'luxon';
+import { today } from '../../app.config';
+import { FormControl, FormGroup } from '@angular/forms';
+type Settings = {
+  start: DateTime<true> | DateTime<false>;
+  end: DateTime<true> | DateTime<false>;
+};
+
+type FormGroupOf<Type> = FormGroup<
+  {
+    [Property in keyof Type as undefined extends Type[Property] ? Property : never]-?: FormControl<
+      Type[Property] | undefined
+    >;
+  } & {
+    [Property in keyof Type as undefined extends Type[Property] ? never : Property]: FormControl<
+      Type[Property]
+    >;
+  }
+>;
 
 @Component({
   selector: 'app-ui-timewindow',
   standalone: true,
-  imports: [],
-  template: `
-    <div class="px-4 py-8 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">
-          UI TimeWindow
-        </h1>
-        <p class="text-lg text-gray-600 mb-8">
-          Composants de sélection de plages temporelles avec calendrier.
-        </p>
-
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h3 class="text-yellow-800 font-medium">🚧 En cours de développement</h3>
-          <p class="text-yellow-700 mt-2">
-            Cette section sera bientôt disponible avec des exemples de sélecteurs de dates et
-            calendriers.
-          </p>
-        </div>
-      </div>
-    </div>
-  `,
+  imports: [TimewindowComponent, JsonPipe, CommonModule, ReactiveFormsModule],
+  providers: [{ provide: TIMEWINDOW_STRINGS, useValue: FrenchTimewindowStrings }],
+  templateUrl: './ui-timewindow.component.html',
+  styleUrls: ['./ui-timewindow.component.css'],
 })
-export class UiTimewindowComponent {}
+export class UiTimewindowComponent {
+  private dtFrom = today().set({
+    hour: DateTime.now().hour - 1,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  });
+  private dtEnd = today().set({
+    hour: DateTime.now().hour,
+    minute: DateTime.now().minute + 1,
+    second: 0,
+    millisecond: 0,
+  });
+  protected readonly form: FormGroupOf<Settings> = new FormGroup({
+    start: new FormControl<DateTime>(this.dtFrom, { nonNullable: true }),
+    end: new FormControl<DateTime>(this.dtEnd, { nonNullable: true }),
+  });
+  selectedTimeWindow = signal<TimeWindow | null>(null);
+
+  timewindow = signal<TimeWindow | null>(null);
+
+  protected timewindowShowCase: TimeWindow = {
+    mode: 'absolute',
+    from: this.dtFrom.toJSDate(),
+    to: this.dtEnd.toJSDate(),
+  };
+
+  predefinedTimeWindow = signal<TimeWindow>({
+    mode: 'relative',
+    duration: '24h',
+    durationMs: 24 * 60 * 60 * 1000,
+    live: true,
+  });
+
+  protected updateTimewindow(timewindow: TimeWindow | null) {
+    if (!this.timewindowShowCase || this.timewindowShowCase.mode !== 'absolute') {
+      this.form.controls.start.reset();
+      this.form.controls.end.reset();
+      return;
+    }
+
+    const startDate = DateTime.fromJSDate(this.timewindowShowCase.from);
+    const endDate = DateTime.fromJSDate(this.timewindowShowCase.to);
+
+    if (startDate.isValid) this.form.controls.start.setValue(startDate);
+    if (endDate.isValid) this.form.controls.end.setValue(endDate);
+  }
+}

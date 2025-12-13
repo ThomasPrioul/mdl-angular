@@ -15,6 +15,7 @@
     "@angular/router": "~19.2.0",
     "angular-oauth2-oidc": "^19.0.0",
     "flatpickr": "^4.6.13",
+    "luxon": "^3.7.2",
     "rxjs": "~7.8.0",
     "zone.js": "~0.15.0"
   },
@@ -43,6 +44,7 @@
     "@swc/helpers": "~0.5.11",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/jest": "^29.5.12",
+    "@types/luxon": "^3.7.1",
     "@types/node": "18.16.9",
     "@typescript-eslint/utils": "^8.29.0",
     "angular-eslint": "^19.2.0",
