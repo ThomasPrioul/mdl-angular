@@ -1,0 +1,28 @@
+.nav-link {
+  border-color: transparent;
+  color: rgb(107 114 128);
+  white-space: nowrap;
+  padding: 0.5rem 0.25rem;
+  border-bottom-width: 2px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.nav-link:hover {
+  color: rgb(55 65 81);
+  border-color: rgb(209 213 219);
+}
+
+.nav-link-btn {
+  background-color: rgb(31, 4, 128);
+  padding: 4px 16px;
+  border-radius: 6px;
+  border-color: transparent;
+  color: rgb(201, 205, 212);
+  white-space: nowrap;
+  border-bottom-width: 2px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}

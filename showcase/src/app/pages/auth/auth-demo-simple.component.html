@@ -1,0 +1,169 @@
+<div class="px-4 py-8 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Librairie d'Authentification MDL Angular
+      </h1>
+      <p class="mt-4 text-lg text-gray-600">
+        Système complet d'authentification avec OAuth2/OIDC et gestion des utilisateurs
+      </p>
+    </div>
+
+    <!-- Navigation des exemples -->
+    <div class="bg-white shadow rounded-lg mb-8">
+      <div class="border-b border-gray-200">
+        <nav class="-mb-px flex justify-between items-center px-6" aria-label="Tabs">
+          <div class="flex space-x-8 py-2">
+            <a routerLink="/" class="nav-link">Accueil</a>
+            <a
+              routerLink="/auth"
+              routerLinkActive="border-indigo-500 text-indigo-600"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              Vue d'ensemble
+            </a>
+            <a
+              routerLink="/auth/public"
+              routerLinkActive="border-indigo-500 text-indigo-600"
+              class="nav-link"
+            >
+              Page publique
+            </a>
+            <a
+              routerLink="/auth/protected"
+              routerLinkActive="border-indigo-500 text-indigo-600"
+              class="nav-link"
+            >
+              Page protégée
+            </a>
+            <a
+              routerLink="/auth/fake-auth"
+              routerLinkActive="border-indigo-500 text-indigo-600"
+              class="nav-link"
+            >
+              Demo Fake Auth
+            </a>
+          </div>
+          <div>
+            @if (!user()) {
+              <button (click)="login()" class="nav-link-btn">login</button>
+            } @else {
+              <button (click)="logout()" class="nav-link-btn">
+                [{{ user()!.displayName }}] logout
+              </button>
+            }
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Fonctionnalités -->
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">🚀 Fonctionnalités principales</h2>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="flex items-start space-x-3">
+          <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-1">
+            <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-900">OAuth2/OIDC avec Keycloak</h3>
+            <p class="text-sm text-gray-600">Support complet du protocole d'authentification</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-1">
+            <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-900">Guards de sécurité</h3>
+            <p class="text-sm text-gray-600">Protection automatique des routes sensibles</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-1">
+            <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-900">Angular Signals</h3>
+            <p class="text-sm text-gray-600">
+              État réactif avec les dernières fonctionnalités Angular
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-1">
+            <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-900">Provider Fake pour tests</h3>
+            <p class="text-sm text-gray-600">Développement et tests simplifiés</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Overview -->
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">📚 API Principal</h2>
+      <div class="bg-gray-50 rounded-md p-4">
+        <h3 class="text-sm font-medium text-gray-900 mb-2">IAuthService&lt;T&gt;</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><code>accessToken: Signal&lt;string | undefined&gt;</code> - Token d'accès actuel</li>
+          <li><code>user: Signal&lt;T | undefined&gt;</code> - Informations utilisateur</li>
+          <li><code>hasValidAccess(): boolean</code> - Vérification de la validité du token</li>
+          <li><code>login(url?: string): Promise&lt;void&gt;</code> - Connexion utilisateur</li>
+          <li><code>logout(): void</code> - Déconnexion utilisateur</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">⚡ Démarrage rapide</h2>
+      <div class="space-y-4">
+        <div class="bg-blue-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-blue-900 mb-2">1. Installation</h3>
+          <p class="text-sm text-blue-800"><code>npm install &#64;mdl-angular/auth</code></p>
+        </div>
+
+        <div class="bg-green-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-green-900 mb-2">2. Configuration</h3>
+          <p class="text-sm text-green-800">Ajoutez les providers dans app.config.ts</p>
+        </div>
+
+        <div class="bg-purple-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-purple-900 mb-2">3. Utilisation</h3>
+          <p class="text-sm text-purple-800">Injectez AUTH_SERVICE et utilisez les guards</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

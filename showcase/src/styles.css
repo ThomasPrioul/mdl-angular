@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+
+/* Styles globaux pour le showcase */
+body {
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Améliorations pour le code */
+pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Styles pour les liens de navigation actifs */
+.router-link-active {
+  border-color: rgb(99 102 241);
+  color: rgb(17 24 39);
+}

@@ -1,0 +1,53 @@
+<div class="px-4 py-8 sm:px-6 lg:px-8">
+  <a routerLink="/auth" class="text-blue-600 hover:underline mb-4 inline-block">
+    ← Retour à la démo d'authentification
+  </a>
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-green-800">Page Publique</h3>
+          <div class="mt-2 text-sm text-green-700">
+            <p>Cette page est accessible à tous les utilisateurs, authentifiés ou non.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Contenu Public</h2>
+      <p class="text-gray-600 mb-4">
+        Cette page démontre l'accès public dans votre application. Aucune authentification n'est
+        requise pour voir ce contenu.
+      </p>
+
+      <div class="space-y-4">
+        <div class="bg-gray-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-gray-900 mb-2">Caractéristiques</h3>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <li>• Accessible sans authentification</li>
+            <li>• Pas de guard sur cette route</li>
+            <li>• Contenu visible par tous</li>
+            <li>• Parfait pour landing pages, documentation, etc.</li>
+          </ul>
+        </div>
+
+        <div class="bg-blue-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-blue-900 mb-2">Code de la route</h3>
+          <pre
+            class="text-xs text-blue-800 overflow-x-auto"
+          ><code>{{'{'}}<br>  path: 'public',<br>  component: PublicPageComponent<br>  // Pas de canActivate = accès libre<br>{{'}'}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

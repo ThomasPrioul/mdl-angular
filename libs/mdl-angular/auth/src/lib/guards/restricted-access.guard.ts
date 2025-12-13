@@ -11,8 +11,9 @@ import { AUTH_SERVICE } from '../interfaces/auth.interface';
  */
 export const restrictedAccessGuard: CanActivateFn = async (route, state) => {
   const auth = inject(AUTH_SERVICE);
-  if (!auth.hasValidAccess()) {
-    await auth.login(state.url);
-  }
-  return true;
+  return auth.hasValidAccess();
+  // if (!auth.hasValidAccess()) {
+  //   await auth.login(state.url);
+  // }
+  // return true;
 };

@@ -1,0 +1,146 @@
+<div class="px-4 py-8 sm:px-6 lg:px-8">
+  <a routerLink="/auth" class="text-blue-600 hover:underline mb-4 inline-block">
+    ← Retour à la démo d'authentification
+  </a>
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-8">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-purple-800">🧪 Démonstration Fake Auth</h3>
+          <div class="mt-2 text-sm text-purple-700">
+            <p>Provider d'authentification simulé pour le développement et les tests.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">🔄 État d'authentification actuel</h2>
+
+      @if (user()) {
+        <div class="space-y-4">
+          <div class="bg-green-50 rounded-md p-4">
+            <h3 class="text-sm font-medium text-green-900 mb-2">
+              ✅ Utilisateur connecté (simulation)
+            </h3>
+            <div class="bg-white rounded p-3 border">
+              <pre class="text-xs text-green-800 overflow-x-auto">{{ user() | json }}</pre>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 rounded-md p-4">
+            <h3 class="text-sm font-medium text-blue-900 mb-2">🎫 Token simulé</h3>
+            <p class="text-xs text-blue-800 break-all font-mono bg-white p-2 rounded border">
+              fake-jwt-token-{{ getCurrentTime() }}
+            </p>
+          </div>
+
+          <button
+            (click)="logout()"
+            class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
+          >
+            🚪 Se déconnecter (fake)
+          </button>
+        </div>
+      } @else {
+        <div class="space-y-4">
+          <div class="bg-yellow-50 rounded-md p-4">
+            <h3 class="text-sm font-medium text-yellow-900 mb-2">❌ Utilisateur non connecté</h3>
+            <p class="text-sm text-yellow-800">
+              Cliquez sur "Se connecter" pour simuler une connexion.
+            </p>
+          </div>
+
+          <button
+            (click)="login()"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:blue-700 transition-colors"
+          >
+            🔑 Se connecter (fake)
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">⚙️ Configuration Fake Auth</h2>
+      <p class="text-gray-600 mb-4">
+        Le provider fake est parfait pour le développement local et les tests unitaires.
+      </p>
+
+      <div class="space-y-4">
+        <div class="bg-gray-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-gray-900 mb-2">📋 Configuration</h3>
+          <p class="text-sm text-gray-600">
+            Configuré dans app.config.ts avec <code>provideFakeAuth()</code>
+          </p>
+        </div>
+
+        <div class="bg-blue-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-blue-900 mb-2">✨ Avantages</h3>
+          <ul class="text-sm text-blue-800 space-y-1">
+            <li>• Développement sans serveur d'authentification</li>
+            <li>• Tests unitaires simplifiés</li>
+            <li>• Simulation rapide de différents états utilisateur</li>
+            <li>• Pas de dépendance externe</li>
+            <li>• Interface identique au vrai service</li>
+          </ul>
+        </div>
+
+        <div class="bg-yellow-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-yellow-900 mb-2">⚠️ Note importante</h3>
+          <p class="text-sm text-yellow-800">
+            Le Fake Auth ne doit être utilisé qu'en développement. En production, utilisez
+            provideKeycloakAuth() ou un autre provider réel.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">🧪 Test des fonctionnalités</h2>
+
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <button
+          (click)="checkAuthStatus()"
+          class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
+        >
+          🔍 Vérifier hasValidAccess()
+        </button>
+
+        <button
+          (click)="refreshUserInfo()"
+          class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+        >
+          🔄 Rafraîchir les infos
+        </button>
+
+        <button
+          (click)="simulateTest()"
+          class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-colors"
+        >
+          ⚡ Test simulation
+        </button>
+      </div>
+
+      @if (testResults.length > 0) {
+        <div class="mt-4 bg-gray-50 rounded-md p-4">
+          <h3 class="text-sm font-medium text-gray-900 mb-2">📝 Résultats des tests</h3>
+          <div class="space-y-1 max-h-40 overflow-y-auto">
+            @for (result of testResults; track $index) {
+              <p class="text-xs text-gray-600">{{ result }}</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
