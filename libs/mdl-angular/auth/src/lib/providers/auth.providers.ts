@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 
 import {
+  AuthConfig,
   NullValidationHandler,
   OAuthModuleConfig,
   OAuthService,
@@ -41,9 +42,10 @@ export function provideKeycloakAuth<TUser>(
   issuer: string,
   clientId: string,
   claimsToUserFn: ClaimsToUserFn<TUser>,
-  allowAnonymous = true,
-  redirectUri?: string,
   config?: OAuthModuleConfig,
+  allowAnonymous = true,
+  authConfig?: AuthConfig,
+  redirectUri?: string,
   validationHandlerClass?: typeof NullValidationHandler,
 ): EnvironmentProviders {
   return makeEnvironmentProviders([
@@ -56,6 +58,7 @@ export function provideKeycloakAuth<TUser>(
         redirectUri: redirectUri ?? window.location.origin + '/',
         responseType: 'code',
         preserveRequestedRoute: true,
+        ...authConfig,
       });
 
       // Use token info when available to perform login.
