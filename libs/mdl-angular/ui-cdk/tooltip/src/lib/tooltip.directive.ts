@@ -1,4 +1,11 @@
-import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+import {
+  ConnectedPosition,
+  Overlay,
+  OverlayRef,
+  PositionStrategy,
+  STANDARD_DROPDOWN_ADJACENT_POSITIONS,
+  STANDARD_DROPDOWN_BELOW_POSITIONS,
+} from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
   Directive,
@@ -10,8 +17,8 @@ import {
   inject,
   input,
 } from '@angular/core';
-
 import { NgClassLike } from '@mdl-angular/common';
+
 import {
   TOOLTIP_DATA,
   TooltipContainerComponent,
@@ -32,6 +39,10 @@ export class TooltipDirective implements OnDestroy {
   private viewContainer = inject(ViewContainerRef);
 
   public readonly mdlTooltip = input<TooltipData>();
+  public readonly positions = input<ConnectedPosition[]>([
+    ...STANDARD_DROPDOWN_BELOW_POSITIONS,
+    ...STANDARD_DROPDOWN_ADJACENT_POSITIONS,
+  ]);
   public readonly tooltipClass = input<NgClassLike>();
 
   /** {@inheritdoc} */
@@ -56,11 +67,7 @@ export class TooltipDirective implements OnDestroy {
         },
       ],
     });
-    const component = new ComponentPortal(
-      TooltipContainerComponent,
-      this.viewContainer,
-      injector,
-    );
+    const component = new ComponentPortal(TooltipContainerComponent, this.viewContainer, injector);
     const componentRef = this.overlayRef.attach(component);
     componentRef.instance.hostClasses = this.tooltipClass;
   }
@@ -69,22 +76,8 @@ export class TooltipDirective implements OnDestroy {
     return this.overlay
       .position()
       .flexibleConnectedTo(this.element)
-      .withPositions([
-        {
-          originX: 'center',
-          originY: 'top',
-          overlayX: 'center',
-          overlayY: 'bottom',
-          panelClass: 'top',
-        },
-        {
-          originX: 'center',
-          originY: 'bottom',
-          overlayX: 'center',
-          overlayY: 'top',
-          panelClass: 'bottom',
-        },
-      ]);
+      .withPositions(this.positions())
+      .withPush();
   }
 
   @HostListener('mouseleave')
