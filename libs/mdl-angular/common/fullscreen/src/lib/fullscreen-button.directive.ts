@@ -18,12 +18,14 @@ export class MdlFullscreenButtonDirective {
 
   constructor() {
     this.el.nativeElement.addEventListener('click', () => {
-      if (this.service.isInFullScreen) {
+      const elToCheck = this.fullscreenRoot ? this._fullscreenRoot : document.body;
+      const elHtml =
+        elToCheck instanceof ElementRef ? (elToCheck.nativeElement as HTMLElement) : elToCheck;
+
+      if (this.service.isInFullScreen && document.fullscreenElement === elHtml) {
         this.service.disableFullScreen();
-      } else if (this.fullscreenRoot) {
-        this.service.enableFullScreen(this.fullscreenRoot);
       } else {
-        this.service.enableFullScreen(document.body);
+        this.service.enableFullScreen(this._fullscreenRoot ?? document.body);
       }
     });
   }

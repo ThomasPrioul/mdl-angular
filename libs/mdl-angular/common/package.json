@@ -1,6 +1,6 @@
 {
   "name": "@mdl-angular/common",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Base Angular pipes and directives useful for your project",
   "peerDependencies": {
     "@angular/core": ">=19.2.0 <21.0.0",

@@ -18,9 +18,7 @@ export class FullscreenService implements OnDestroy {
   );
 
   constructor() {
-    this.sub = this.isInFullScreen$
-      .pipe(tap((val) => (this._isInFullScreen = val)))
-      .subscribe();
+    this.sub = this.isInFullScreen$.pipe(tap((val) => (this._isInFullScreen = val))).subscribe();
   }
 
   /**
@@ -48,13 +46,8 @@ export class FullscreenService implements OnDestroy {
    * Enables fullscreen on an element.
    * @param element - Target element of fullscreen API.
    */
-  public async enableFullScreen(
-    element: ElementRef | HTMLElement,
-  ): Promise<void> {
-    const elHtml =
-      element instanceof ElementRef
-        ? (element.nativeElement as HTMLElement)
-        : element;
+  public async enableFullScreen(element: ElementRef | HTMLElement): Promise<void> {
+    const elHtml = element instanceof ElementRef ? (element.nativeElement as HTMLElement) : element;
     try {
       await elHtml.requestFullscreen();
     } catch (err) {
